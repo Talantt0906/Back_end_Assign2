@@ -1,4 +1,4 @@
-markdown# 🌍 Global Weather & Financial Insights Platform (Enterprise Edition)
+ 🌍 Global Weather & Financial Insights Platform
 
 ## 📖 Project Overview
 
