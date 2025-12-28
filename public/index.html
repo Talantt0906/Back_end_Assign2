@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Weather Hub</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 90%; max-width: 500px; text-align: center; }
+        
+        
+        input { width: 70%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; transition: border 0.3s; }
+        input:focus { border-color: #007bff; outline: none; }
+        button { padding: 12px 20px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+        
+        .result-card { margin-top: 20px; text-align: left; background: #fafafa; padding: 15px; border-radius: 10px; }
+        .field { margin: 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; display: flex; justify-content: space-between; }
+        
+        
+        @media (max-width: 480px) {
+            input { width: 100%; margin-bottom: 10px; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather Explorer</h1>
+        <input type="text" id="cityInput" placeholder="Enter city name...">
+        <button onclick="fetchAllData()">Search</button>
+
+        <div id="display"></div>
+    </div>
+
+    <script>
+        async function fetchAllData() {
+            const city = document.getElementById('cityInput').value;
+            const display = document.getElementById('display');
+            display.innerHTML = "Fetching secure data from server...";
+
+            try {
+                
+                const wRes = await fetch(`/api/weather?city=${city}`);
+                const w = await wRes.json();
+                if (w.error) throw new Error(w.error);
+
+                
+                const cRes = await fetch(`/api/country/${w.country_code}`);
+                const c = await cRes.json();
+
+                const eRes = await fetch(`/api/exchange/${c.currencyCode}`);
+                const e = await eRes.json();
+
+
+                display.innerHTML = `
+                    <div class="result-card">
+                        <h3>${city.toUpperCase()} Weather</h3>
+                        <div class="field"><span>Temperature:</span> <b>${w.temperature}°C</b></div>
+                        <div class="field"><span>Description:</span> <b>${w.description}</b></div>
+                        <div class="field"><span>Feels Like:</span> <b>${w.feels_like}°C</b></div>
+                        <div class="field"><span>Wind Speed:</span> <b>${w.wind_speed} m/s</b></div>
+                        <div class="field"><span>Rain (3h):</span> <b>${w.rain} mm</b></div>
+                        <div class="field"><span>Location:</span> <b>Lat: ${w.coordinates.lat}, Lon: ${w.coordinates.lon}</b></div>
+                        
+                        <h3 style="margin-top:20px">Country Insights</h3>
+                        <div class="field"><span>Official Name:</span> <b>${c.fullName}</b></div>
+                        <div class="field"><span>Population:</span> <b>${c.population.toLocaleString()}</b></div>
+                        <div class="field"><span>Region:</span> <b>${c.region}</b></div>
+                        <h3 style="margin-top:20px">National Finance Info</h3>
+                        <div class="field"><span>Local Currency:</span> <b>${c.currencyName} (${c.currencyCode})</b></div>
+                        <div class="field"><span>Exchange Rate:</span> <b>1 USD = ${e.rate} ${c.currencyCode}</b></div>
+                        <img src="${c.flag}" style="width: 100px; margin-top:10px; border-radius: 5px;">
+                    </div>
+                `;
+            } catch (err) {
+                display.innerHTML = `<p style="color:red">Error: ${err.message}. If 401, please wait for API Key activation.</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
