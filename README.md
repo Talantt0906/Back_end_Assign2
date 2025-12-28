@@ -349,14 +349,17 @@ Frontend (index.html)   →  Display, user interaction, styling
 
 ### Website Screenshot
 
-![Global Weather Hub Interface](https://via.placeholder.com/900x650?text=Replace+with+actual+screenshot)
+<img width="1440" height="984" alt="image" src="https://github.com/user-attachments/assets/387b4bfc-ae87-4e54-9ace-91b02235d269" />
+
 
 **Example Display:**  
 Showing real-time weather, national flag, and currency data for **Altay, China**
 
+<img width="1349" height="970" alt="image" src="https://github.com/user-attachments/assets/84b873c7-3a7f-4ad9-bff5-ccb220d5e021" />
+
 **Visible Elements:**
-- Temperature: 8°C
-- Weather: Clear sky
+- Temperature: -13.44°C
+- Weather: few clouds
 - Coordinates: Lat 47.8667, Lon 88.1167
 - Country: People's Republic of China
 - Population: 1,402,112,000
@@ -366,52 +369,7 @@ Showing real-time weather, national flag, and currency data for **Altay, China**
 
 ---
 
-### Postman API Testing Screenshots
 
-#### Test 1: Weather Endpoint
-![Postman Weather API](https://via.placeholder.com/900x500?text=Postman+Weather+Test)
-
-**Request:**
-```
-GET http://localhost:3000/api/weather?city=Altay
-```
-
-**Response Preview:**
-```json
-{
-  "temperature": 8,
-  "description": "clear sky",
-  "coordinates": { "lat": 47.8667, "lon": 88.1167 },
-  "feels_like": 6.2,
-  "wind_speed": 2.5,
-  "country_code": "CN",
-  "rain": 0
-}
-```
-
----
-
-#### Test 2: Country Endpoint
-![Postman Country API](https://via.placeholder.com/900x500?text=Postman+Country+Test)
-
-**Request:**
-```
-GET http://localhost:3000/api/country/CN
-```
-
-**Response Preview:**
-```json
-{
-  "fullName": "People's Republic of China",
-  "flag": "https://flagcdn.com/w320/cn.png",
-  "population": 1402112000,
-  "region": "Asia",
-  "currencyCode": "CNY",
-  "currencyName": "Chinese yuan"
-}
-```
-
----
 
 #### Test 3: Exchange Rate Endpoint
 ![Postman Exchange API](https://via.placeholder.com/900x500?text=Postman+Exchange+Test)
@@ -430,31 +388,6 @@ GET http://localhost:3000/api/exchange/CNY
 
 ---
 
-### 📷 How to Capture Your Screenshots
-
-1. **Website Screenshot:**
-   - Start server: `node server.js`
-   - Navigate to: `http://localhost:3000`
-   - Search for: "Altay" or your preferred city
-   - Wait for complete data load
-   - Press `F12` → Responsive mode (optional)
-   - Screenshot entire interface
-
-2. **Postman Screenshots:**
-   - Open Postman application
-   - Create GET requests for each endpoint
-   - Add query/URL parameters as shown
-   - Click "Send"
-   - Screenshot the Response panel
-   - Save with descriptive names
-
-3. **Update README:**
-```markdown
-   ![Website](./screenshots/website.png)
-   ![Postman Weather](./screenshots/postman-weather.png)
-   ![Postman Country](./screenshots/postman-country.png)
-   ![Postman Exchange](./screenshots/postman-exchange.png)
-```
 
 ---
 
