@@ -355,8 +355,6 @@ Frontend (index.html)   →  Display, user interaction, styling
 **Example Display:**  
 Showing real-time weather, national flag, and currency data for **Altay, China**
 
-<img width="1349" height="970" alt="image" src="https://github.com/user-attachments/assets/84b873c7-3a7f-4ad9-bff5-ccb220d5e021" />
-
 **Visible Elements:**
 - Temperature: -13.44°C
 - Weather: few clouds
@@ -369,27 +367,6 @@ Showing real-time weather, national flag, and currency data for **Altay, China**
 
 ---
 
-
-
-#### Test 3: Exchange Rate Endpoint
-![Postman Exchange API](https://via.placeholder.com/900x500?text=Postman+Exchange+Test)
-
-**Request:**
-```
-GET http://localhost:3000/api/exchange/CNY
-```
-
-**Response Preview:**
-```json
-{
-  "rate": "7.24"
-}
-```
-
----
-
-
----
 
 ## 🛠️ Technical Stack Summary
 
