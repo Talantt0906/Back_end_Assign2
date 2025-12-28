@@ -1,315 +1,119 @@
-lobal Weather Hub 🌍☁️
-A full-stack weather application that provides comprehensive weather information, country insights, and real-time currency exchange rates through server-side API integration.
-📦 Setup Instructions
-Prerequisites
+markdown# 🌍 Global Weather & Financial Insights Platform (Enterprise Edition)
 
-Node.js (v14 or higher)
-npm (Node Package Manager)
-OpenWeather API key
+## 📖 Project Overview
 
-Installation Steps
-
-Clone the repository
-
-bash   git clone https://github.com/yourusername/global-weather-hub.git
-   cd global-weather-hub
-
-Install dependencies
-
-bash   npm install
-
-Create environment file
-Create a .env file in the root directory:
-
-env   OPENWEATHER_API_KEY=your_api_key_here
-   PORT=3000
-```
-
-4. **Obtain OpenWeather API Key**
-   - Visit [OpenWeather API](https://openweathermap.org/api)
-   - Sign up for a free account
-   - Generate an API key from your account dashboard
-   - Copy the key to your `.env` file
-   - **Important**: New API keys may take 10-15 minutes to activate
-
-5. **Create project structure**
-```
-   project-root/
-   ├── server.js
-   ├── package.json
-   ├── .env
-   ├── .gitignore
-   └── public/
-       └── index.html
-```
-
-6. **Add the HTML file**
-   
-   Create `public` folder and place `index.html` inside it
-
-7. **Create .gitignore file**
-```
-   node_modules/
-   .env
-
-Start the server
-
-bash   node server.js
-```
-   
-   You should see: `Server running on http://localhost:3000`
-
-9. **Access the application**
-   
-   Open your browser and navigate to:
-```
-   http://localhost:3000
-Package.json
-json{
-  "name": "global-weather-hub",
-  "version": "1.0.0",
-  "description": "Weather app with country insights and currency exchange",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "axios": "^1.6.0",
-    "dotenv": "^16.3.1"
-  },
-  "keywords": ["weather", "api", "express", "nodejs"],
-  "author": "Your Name",
-  "license": "MIT"
-}
-```
-
-## 🔌 API Usage Details
-
-### API Architecture
-All APIs are called **server-side only** to protect API keys and ensure secure data handling. The frontend communicates only with the Express server, which then fetches data from external APIs.
+This application is a robust, server-side integrated service that synchronizes meteorological data with geopolitical and financial metrics. By centralizing API communication on the backend, the system ensures high security for sensitive credentials and delivers a unified, sanitized data packet to the client-side interface.
 
 ---
 
-### 1. Weather API Endpoint
+## ⚙️ Detailed Setup & Installation
 
-**Endpoint**: `/api/weather`  
-**Method**: GET  
-**Query Parameters**: `city` (required, string)
+### Prerequisites
+- Node.js (v16 or higher)
+- npm (Node Package Manager)
+- OpenWeather API Key
 
-**Example Request**:
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Talantt0906/Back_end_Assign2.git
+cd Back_end_Assign2
 ```
-GET http://localhost:3000/api/weather?city=London
-Response:
-json{
-  "temperature": 15.2,
-  "description": "clear sky",
-  "coordinates": {
-    "lat": 51.5074,
-    "lon": -0.1278
-  },
-  "feels_like": 14.1,
-  "wind_speed": 3.5,
-  "country_code": "GB",
-  "rain": 0
-}
-External API: OpenWeather API (https://api.openweathermap.org/data/2.5/weather)
-What it does:
 
-Retrieves real-time weather data for specified city
-Converts temperature to Celsius (metric units)
-Extracts all required fields: temperature, description, coordinates, feels-like, wind speed, country code, rain volume
-Returns country code for use in subsequent API calls
+### 2. Dependency Management
+```bash
+npm install
+```
 
-Error Response:
-json{
-  "error": "Weather data failed"
-}
+This command reads the `package.json` to install `express`, `axios`, and `dotenv`.
+
+**Required Dependencies:**
+- **express**: Minimalist web framework for routing
+- **axios**: Promise-based HTTP client for API requests
+- **dotenv**: Environment variable isolation for security
+
+### 3. Environment Configuration
+
+Create a `.env` file in the project root directory:
+```env
+OPENWEATHER_API_KEY=your_secret_key_here
+PORT=3000
+```
+
+**How to obtain API Key:**
+1. Visit [OpenWeather API](https://openweathermap.org/api)
+2. Create a free account
+3. Navigate to API Keys section
+4. Generate new key
+5. Copy and paste into `.env` file
+6. **Important**: Wait 10-15 minutes for key activation
+
+### 4. Project Structure Setup
+
+Ensure your folder structure matches:
+```
+Back_end_Assign2/
+├── node_modules/     # Dependency libraries (Auto-generated)
+├── public/           # Static frontend files
+│   └── index.html    # Responsive UI
+├── .env              # Private API keys (DO NOT COMMIT)
+├── .gitignore        # Git exclusion rules
+├── package.json      # Project manifest
+├── README.md         # Documentation
+└── server.js         # Backend API logic
+```
+
+### 5. Create .gitignore
+```
+node_modules/
+.env
+```
+
+### 6. Launch the Server
+```bash
+node server.js
+```
+
+**Expected Output:**
+```
+Server running on http://localhost:3000
+```
+
+### 7. Access the Application
+
+Open your browser and navigate to:
+```
+http://localhost:3000
 ```
 
 ---
 
-### 2. Country Information API Endpoint
+## 📡 API Service Logic & Chaining
 
-**Endpoint**: `/api/country/:code`  
-**Method**: GET  
-**URL Parameters**: `code` (required, ISO 3166-1 alpha-2 country code)
+The application utilizes a **Linear Data Chain** architecture to ensure context-aware results through three interconnected APIs.
 
-**Example Request**:
-```
-GET http://localhost:3000/api/country/GB
-Response:
-json{
-  "fullName": "United Kingdom of Great Britain and Northern Ireland",
-  "flag": "https://flagcdn.com/w320/gb.png",
-  "population": 67215293,
-  "region": "Europe",
-  "currencyCode": "GBP",
-  "currencyName": "British pound"
-}
-External API: REST Countries API (https://restcountries.com/v3.1/alpha/)
-What it does:
+### 🌡️ API 1: Weather Data Aggregation (Core Requirement)
 
-Fetches comprehensive country information using country code from weather API
-Provides official country name, flag image, population, and region
-Extracts currency information (code and name) for exchange rate API
-No API key required
+**Endpoint:** `/api/weather`  
+**Method:** GET  
+**Parameter:** `city` (query string)
 
-Error Response:
-json{
-  "error": "Country failed"
-}
-```
+**External Source:** OpenWeather API  
+**URL:** `https://api.openweathermap.org/data/2.5/weather`
 
----
-
-### 3. Currency Exchange API Endpoint
-
-**Endpoint**: `/api/exchange/:currency`  
-**Method**: GET  
-**URL Parameters**: `currency` (required, ISO 4217 currency code)
-
-**Example Request**:
-```
-GET http://localhost:3000/api/exchange/EUR
-Response:
-json{
-  "rate": "0.93"
-}
-External API: Exchange Rate API (https://open.er-api.com/v6/latest/USD)
-What it does:
-
-Fetches real-time exchange rates with USD as base currency
-Converts rate to 2 decimal places for readability
-Provides currency conversion information for the selected country
-No API key required
-
-Error Response:
-json{
-  "rate": "N/A"
-}
-```
-
----
-
-### API Call Flow
-```
-User enters "London" → Frontend calls /api/weather?city=London
-                              ↓
-                    Returns country_code: "GB"
-                              ↓
-              Frontend calls /api/country/GB
-                              ↓
-                  Returns currencyCode: "GBP"
-                              ↓
-             Frontend calls /api/exchange/GBP
-                              ↓
-                    Returns rate: "0.79"
-                              ↓
-              All data displayed together
-```
-
-## 🎨 Key Design Decisions
-
-### 1. Server-Side API Integration
-**Decision**: All external API calls are made from the Express server, not the frontend.
-
-**Reasons**:
-- **Security**: API keys (especially OpenWeather) remain hidden on the server and are never exposed to the client
-- **Control**: Server validates and processes data before sending to frontend
-- **Simplicity**: Frontend code remains clean and focused on display logic
-- **Best Practice**: Industry standard for production applications
-
-### 2. Three-API Sequential Architecture
-**Decision**: Chained API calls where each API's response feeds into the next request.
-
-**Reasons**:
-- **Data Dependency**: Country code from Weather API → Country API → Currency code → Exchange API
-- **Comprehensive Information**: Provides complete context (weather + country insights + financial data)
-- **Single Search**: User enters one city name and gets all related information
-- **Enhanced UX**: Rich, contextual data presentation without multiple user inputs
-
-### 3. Clean JSON Response Structure
-**Decision**: Server endpoints return only essential, cleaned data to frontend.
-
-**Reasons**:
-- **Efficiency**: Reduces payload size by filtering unnecessary fields
-- **Consistency**: Standardized response format across all endpoints
-- **Frontend Simplicity**: Frontend doesn't need to navigate complex nested objects
-- **Maintainability**: Easy to modify data structure without breaking frontend
-
-### 4. Graceful Error Handling
-**Decision**: Try-catch blocks on all API calls with user-friendly error messages.
-
-**Reasons**:
-- **Reliability**: Prevents server crashes from external API failures
-- **User Experience**: Provides helpful feedback instead of blank screens
-- **Debugging**: Console errors help developers identify issues
-- **Fallback Values**: Default values (e.g., rain = 0) when data unavailable
-
-### 5. Responsive Single-Page Design
-**Decision**: Single HTML page with dynamic content rendering using vanilla JavaScript.
-
-**Reasons**:
-- **Performance**: No page reloads, faster user experience
-- **Simplicity**: No framework overhead for this scope
-- **Assignment Requirements**: Demonstrates core web development skills
-- **Mobile-First**: Media queries ensure usability on all devices
-
-### 6. Static File Serving
-**Decision**: Express serves frontend files from `public` directory.
-
-**Reasons**:
-- **Simplicity**: No need for separate frontend server
-- **Same Origin**: Avoids CORS complications
-- **Production Ready**: Standard Express pattern for serving static assets
-
-### 7. Environment Variable Configuration
-**Decision**: Use `.env` file for API keys and configuration.
-
-**Reasons**:
-- **Security**: Prevents accidental commit of sensitive credentials
-- **Flexibility**: Easy to change settings without modifying code
-- **Standard Practice**: Industry-standard configuration management
-- **Team Collaboration**: Each developer uses their own API keys
-
-### 8. Modern UI/UX Patterns
-**Decision**: Card-based layout with clear visual hierarchy and loading states.
-
-**Reasons**:
-- **User Feedback**: Loading messages keep users informed
-- **Readability**: Field-value pairs with clear labels
-- **Visual Appeal**: Modern design with shadows, rounded corners, and proper spacing
-- **Accessibility**: High contrast, readable fonts, touch-friendly buttons
-
-## 📸 Screenshots
-
-### Web Application Screenshot
-![Weather App Screenshot](https://via.placeholder.com/800x600?text=Add+Your+Website+Screenshot+Here)
-
-**To capture your screenshot:**
-1. Start the server: `node server.js`
-2. Open browser: `http://localhost:3000`
-3. Search for a city (e.g., "London", "Tokyo", "Paris")
-4. Wait for all data to load
-5. Take a full-page screenshot
-6. Save as `screenshot-web.png` and replace the placeholder above
-
----
-
-### Postman API Testing
-
-#### Test 1: Weather API
-![Postman Weather Test](https://via.placeholder.com/800x400?text=Postman+Weather+API+Screenshot)
-
-**Request:**
+**Request Example:**
 ```
 GET http://localhost:3000/api/weather?city=Tokyo
-Expected Response:
-json{
+```
+
+**Response Structure:**
+```json
+{
   "temperature": 18.5,
   "description": "partly cloudy",
-  "coordinates": { "lat": 35.6895, "lon": 139.6917 },
+  "coordinates": {
+    "lat": 35.6895,
+    "lon": 139.6917
+  },
   "feels_like": 17.2,
   "wind_speed": 4.1,
   "country_code": "JP",
@@ -317,16 +121,44 @@ json{
 }
 ```
 
+**Fields Extracted:**
+- **temperature**: Current temperature in Celsius (metric units)
+- **description**: Weather condition description
+- **coordinates**: Geographic latitude and longitude
+- **feels_like**: Perceived temperature
+- **wind_speed**: Wind speed in meters per second
+- **country_code**: ISO 3166-1 alpha-2 country identifier
+- **rain**: Precipitation volume for last 3 hours (mm)
+
+**Reliability Feature:**  
+Implements a ternary fallback operator for the `rain` object:
+```javascript
+rain: d.rain ? (d.rain['3h'] || 0) : 0
+```
+This handles dry weather scenarios gracefully without causing null reference errors.
+
 ---
 
-#### Test 2: Country API
-![Postman Country Test](https://via.placeholder.com/800x400?text=Postman+Country+API+Screenshot)
+### 🌏 API 2: Geopolitical Intelligence (Additional API #1)
 
-**Request:**
+**Endpoint:** `/api/country/:code`  
+**Method:** GET  
+**Parameter:** `code` (URL parameter - ISO country code)
+
+**External Source:** REST Countries API  
+**URL:** `https://restcountries.com/v3.1/alpha/`
+
+**Trigger Logic:**  
+Automatically invoked using the `country_code` retrieved from the Weather API response.
+
+**Request Example:**
 ```
 GET http://localhost:3000/api/country/JP
-Expected Response:
-json{
+```
+
+**Response Structure:**
+```json
+{
   "fullName": "Japan",
   "flag": "https://flagcdn.com/w320/jp.png",
   "population": 125836021,
@@ -336,15 +168,318 @@ json{
 }
 ```
 
+**Function:**
+- Retrieves official state name
+- Provides national flag image URL
+- Returns population statistics
+- Extracts regional classification
+- Identifies primary currency for financial analysis
+
+**No API Key Required** - This is a free, open API service.
+
 ---
 
-#### Test 3: Exchange Rate API
-![Postman Exchange Test](https://via.placeholder.com/800x400?text=Postman+Exchange+API+Screenshot)
+### 💱 API 3: Financial Conversion (Additional API #2)
+
+**Endpoint:** `/api/exchange/:currency`  
+**Method:** GET  
+**Parameter:** `currency` (URL parameter - ISO 4217 currency code)
+
+**External Source:** ExchangeRate-API  
+**URL:** `https://open.er-api.com/v6/latest/USD`
+
+**Trigger Logic:**  
+Automatically invoked using the `currencyCode` identified from the Country API response.
+
+**Request Example:**
+```
+GET http://localhost:3000/api/exchange/JPY
+```
+
+**Response Structure:**
+```json
+{
+  "rate": "149.25"
+}
+```
+
+**Function:**
+- Provides real-time USD to Local Currency exchange rates
+- Formatted to 2 decimal places for readability
+- Base currency is always USD for consistency
+- Handles unavailable currencies with "N/A" fallback
+
+**No API Key Required** - Free tier service with sufficient rate limits.
+
+---
+
+### 🔗 Complete API Chain Flow
+```
+User Input: "Tokyo"
+      ↓
+┌─────────────────────────────────────┐
+│  Step 1: Weather API Call          │
+│  GET /api/weather?city=Tokyo        │
+│  Returns: country_code = "JP"       │
+└─────────────────────────────────────┘
+      ↓
+┌─────────────────────────────────────┐
+│  Step 2: Country API Call           │
+│  GET /api/country/JP                │
+│  Returns: currencyCode = "JPY"      │
+└─────────────────────────────────────┘
+      ↓
+┌─────────────────────────────────────┐
+│  Step 3: Exchange Rate API Call     │
+│  GET /api/exchange/JPY              │
+│  Returns: rate = "149.25"           │
+└─────────────────────────────────────┘
+      ↓
+   Display All Data
+```
+
+---
+
+## 🧠 Key Design Decisions
+
+### 1. Server-Side Proxy Pattern
+
+**Decision:** All external API calls are executed on the Express server, not the client browser.
+
+**Rationale:**
+- **Security**: The `OPENWEATHER_API_KEY` never reaches the client, preventing unauthorized usage or theft
+- **Abstraction**: Client remains ignorant of internal API endpoints and logic
+- **Control**: Server validates, sanitizes, and formats data before transmission
+- **Best Practice**: Industry-standard architecture for production-grade applications
+
+**Implementation:**
+```javascript
+// Client never sees this
+const apiKey = process.env.OPENWEATHER_API_KEY;
+const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+```
+
+---
+
+### 2. Error Resilience with Graceful Degradation
+
+**Decision:** Every API endpoint is wrapped in comprehensive `try...catch` blocks.
+
+**Rationale:**
+- **Fault Tolerance**: If Exchange Rate API fails, Weather and Country data are still served
+- **User Experience**: Partial data is better than complete failure
+- **Debugging**: Server-side error logging helps identify issues without exposing them to users
+- **Fallback Values**: Defaults like `rain: 0` or `rate: "N/A"` prevent UI breaks
+
+**Implementation:**
+```javascript
+try {
+    const response = await axios.get(url);
+    // Process data
+} catch (e) {
+    res.status(500).json({ error: "Service unavailable" });
+}
+```
+
+---
+
+### 3. Mobile-First Responsive Design
+
+**Decision:** UI utilizes CSS Media Queries with a `480px` breakpoint.
+
+**Rationale:**
+- **Accessibility**: Mobile traffic often exceeds desktop in modern web usage
+- **Stacking Layout**: Data cards reorganize vertically on smaller screens for optimal readability
+- **Touch-Friendly**: Larger buttons and inputs accommodate touch interfaces
+- **Progressive Enhancement**: Desktop users get enhanced layouts, mobile users get functional layouts
+
+**Implementation:**
+```css
+@media (max-width: 480px) {
+    input { width: 100%; margin-bottom: 10px; }
+    button { width: 100%; }
+}
+```
+
+---
+
+### 4. Clean Code Standards & Separation of Concerns
+
+**Decision:** Backend logic (server.js) is completely separated from frontend presentation (index.html).
+
+**Rationale:**
+- **Maintainability**: Changes to UI don't require server modifications
+- **Scalability**: Easy to add new endpoints or frontend frameworks
+- **Team Collaboration**: Frontend and backend developers can work independently
+- **Testing**: Each layer can be tested in isolation
+
+**Structure:**
+```
+Backend (server.js)     →  Data processing, API calls, business logic
+Frontend (index.html)   →  Display, user interaction, styling
+```
+
+---
+
+### 5. Sequential API Chaining Architecture
+
+**Decision:** Each API call depends on the previous one's response.
+
+**Rationale:**
+- **Data Coherence**: Currency belongs to Country, which belongs to City
+- **Single User Input**: User enters one city name, gets complete contextual information
+- **Logical Flow**: Mimics natural information hierarchy (Location → Nation → Economy)
+- **Efficiency**: No redundant API calls or unnecessary data fetching
+
+---
+
+### 6. Standardized JSON Response Format
+
+**Decision:** All endpoints return consistent JSON structures with predictable field names.
+
+**Rationale:**
+- **Frontend Simplicity**: JavaScript can reliably access `data.temperature` without null checks
+- **Documentation**: Clear contracts between frontend and backend
+- **Error Handling**: Uniform error objects `{ error: "message" }`
+- **API Evolution**: Easy to extend fields without breaking existing code
+
+---
+
+## 🖼️ Application Demonstration
+
+### Website Screenshot
+
+![Global Weather Hub Interface](https://via.placeholder.com/900x650?text=Replace+with+actual+screenshot)
+
+**Example Display:**  
+Showing real-time weather, national flag, and currency data for **Altay, China**
+
+**Visible Elements:**
+- Temperature: 8°C
+- Weather: Clear sky
+- Coordinates: Lat 47.8667, Lon 88.1167
+- Country: People's Republic of China
+- Population: 1,402,112,000
+- Currency: Chinese yuan (CNY)
+- Exchange Rate: 1 USD = 7.24 CNY
+- National flag image
+
+---
+
+### Postman API Testing Screenshots
+
+#### Test 1: Weather Endpoint
+![Postman Weather API](https://via.placeholder.com/900x500?text=Postman+Weather+Test)
 
 **Request:**
 ```
-GET http://localhost:3000/api/exchange/JPY
-Expected Response:
-json{
-  "rate": "149.25"
+GET http://localhost:3000/api/weather?city=Altay
+```
+
+**Response Preview:**
+```json
+{
+  "temperature": 8,
+  "description": "clear sky",
+  "coordinates": { "lat": 47.8667, "lon": 88.1167 },
+  "feels_like": 6.2,
+  "wind_speed": 2.5,
+  "country_code": "CN",
+  "rain": 0
 }
+```
+
+---
+
+#### Test 2: Country Endpoint
+![Postman Country API](https://via.placeholder.com/900x500?text=Postman+Country+Test)
+
+**Request:**
+```
+GET http://localhost:3000/api/country/CN
+```
+
+**Response Preview:**
+```json
+{
+  "fullName": "People's Republic of China",
+  "flag": "https://flagcdn.com/w320/cn.png",
+  "population": 1402112000,
+  "region": "Asia",
+  "currencyCode": "CNY",
+  "currencyName": "Chinese yuan"
+}
+```
+
+---
+
+#### Test 3: Exchange Rate Endpoint
+![Postman Exchange API](https://via.placeholder.com/900x500?text=Postman+Exchange+Test)
+
+**Request:**
+```
+GET http://localhost:3000/api/exchange/CNY
+```
+
+**Response Preview:**
+```json
+{
+  "rate": "7.24"
+}
+```
+
+---
+
+### 📷 How to Capture Your Screenshots
+
+1. **Website Screenshot:**
+   - Start server: `node server.js`
+   - Navigate to: `http://localhost:3000`
+   - Search for: "Altay" or your preferred city
+   - Wait for complete data load
+   - Press `F12` → Responsive mode (optional)
+   - Screenshot entire interface
+
+2. **Postman Screenshots:**
+   - Open Postman application
+   - Create GET requests for each endpoint
+   - Add query/URL parameters as shown
+   - Click "Send"
+   - Screenshot the Response panel
+   - Save with descriptive names
+
+3. **Update README:**
+```markdown
+   ![Website](./screenshots/website.png)
+   ![Postman Weather](./screenshots/postman-weather.png)
+   ![Postman Country](./screenshots/postman-country.png)
+   ![Postman Exchange](./screenshots/postman-exchange.png)
+```
+
+---
+
+## 🛠️ Technical Stack Summary
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Backend Runtime** | Node.js v16+ | JavaScript execution environment |
+| **Web Framework** | Express.js | RESTful API routing and middleware |
+| **HTTP Client** | Axios | Promise-based API requests |
+| **Security** | Dotenv | Environment variable management |
+| **Frontend** | HTML5/CSS3 | Responsive user interface |
+| **Scripting** | Vanilla JavaScript | Dynamic content rendering |
+
+---
+
+## 📄 License
+
+This project is developed for educational purposes as part of **Assignment 2: Backend API Integration & Service Development**.
+
+---
+
+## 👤 Author
+
+**Talant**  
+GitHub: [@Talantt0906](https://github.com/Talantt0906)
+
+---
